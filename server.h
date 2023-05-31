@@ -27,7 +27,7 @@ typedef struct s_save_cahr
 	int	counter;
 }		t_save_char;
 
-void	init(t_save_char my);
+int		init(t_save_char g_my)
 int		convert_bin_to_char(int *bin);
 void	handle_code(int seg);
 

@@ -14,7 +14,7 @@
 
 char	*convert_char_to_binary(char c)
 {
-	printf("hy from convert_char_to_binary\n");
+	//printf("hy from convert_char_to_binary\n");
 
 	int		dec;
 	int		i;
@@ -43,7 +43,7 @@ void	send_binary(char *binary, pid_t pid)
 	int	i;
 
 	i = 0;
-	while (i < 7)
+	while (i <= 7)
 	{
 		if (binary[i] == '0')
 			kill(pid, SIGUSR1);

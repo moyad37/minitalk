@@ -14,19 +14,20 @@
 
 t_save_char	g_my;
 
-void	init(t_save_char my)
+int	init(t_save_char g_my)
 {
 	//printf("hy from init\n");
 
 	int	i;
-
+	(void)g_my;
+	g_my.counter = 6;
 	i = 0;
 	while (i < 8)
 	{
-		my.bin[i] = 0;
+		g_my.bin[i] = 5;
 		i++;
 	}
-	my.counter = 0;
+	return (0);
 }
 
 int	convert_bin_to_char(int *bin)
@@ -62,9 +63,6 @@ int	convert_bin_to_char(int *bin)
 void	handle_code(int seg)
 {
 	//printf("hy from handle_code\n");
-	int	i;
-
-	i = 0;
 	if (seg != SIGUSR1 && seg != SIGUSR2)
 		return ;
 	else
@@ -96,21 +94,31 @@ void	handle_code(int seg)
 			//printf("\n");
 			c = g_my.c;
 			write(1, &c, 1);
-			init(g_my);
+			g_my.counter = 0;
+			//init(g_my);
 		}
 	}
 }
 
 int	main(void)
 {
-	init(g_my);
+	if(init(g_my) != 0)
+	{
+		write(2, "fehler", 6);
+		return (0);
+	}
 	write(1, "id= ", 4);
+		printf("my.counter = %d\n",g_my.counter);
+	for(int i = 0; i<8; i++)
+	{
+		printf("my.bin[%d] = %d\n", i, g_my.bin[i]);
+	}
 	ft_putnbr_fd(getpid(), 1);
 	write(1, "\n", 1);
 	//write(1, ft_itoa(getpid()), 9);
 	signal(SIGUSR1, handle_code);
 	signal(SIGUSR2, handle_code);
-	while (1)
-		pause();
+	//while (1)
+	//	pause();
 	return (0);
 }
