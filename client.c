@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 01:00:00 by mmanssou          #+#    #+#             */
-/*   Updated: 2023/05/31 14:45:21 by mmanssou         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:03:05 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 char	*convert_char_to_binary(char c)
 {
-	//printf("hy from convert_char_to_binary\n");
-
 	int		dec;
 	int		i;
 	char	*binary;
@@ -38,26 +36,29 @@ char	*convert_char_to_binary(char c)
 
 void	send_binary(char *binary, pid_t pid)
 {
-	printf("hy from send_binary\n");
-    printf("binary is = %s", binary);
 	int	i;
 
 	i = 0;
 	while (i <= 7)
 	{
 		if (binary[i] == '0')
+		{
 			kill(pid, SIGUSR1);
+			usleep(200);
+		}
 		else if (binary[i] == '1')
+		{
 			kill(pid, SIGUSR2);
+			usleep(200);
+		}
+		usleep(200);
         i++;
-		usleep(100);
 	}
+	usleep(200);
 }
 
 void	send_end(pid_t pid)
 {
-	printf("hy from send end\n");
-
 	int	i;
 
 	i = 0;
@@ -67,23 +68,22 @@ void	send_end(pid_t pid)
 		i++;
 		usleep(200);
 	}
+	usleep(200);
 	return ;
 }
 
 void	handle_av(const char *av, pid_t pid)
 {
-	printf("hy from handle_av\n");
-
 	int		i;
 	char	*binary;
 
 	i = 0;
 	while (av[i] != '\0')
 	{
-        printf("this is : %c \n", av[i]);
 		binary = convert_char_to_binary(av[i]);
-        printf("binary is = %s", binary);
+		usleep(200);
 		send_binary(binary, pid);
+		usleep(200);
 		free(binary);
 		i++;
 	}
@@ -103,7 +103,9 @@ int	main(int ac, char **av)
 		else
 		{
 			handle_av(av[2], ft_atoi(av[1]));
+			usleep(200);
 			send_end(ft_atoi(av[1]));
+			usleep(200);
 		}
 	}
 	return (0);

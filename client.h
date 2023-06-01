@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 01:00:00 by mmanssou          #+#    #+#             */
-/*   Updated: 2023/05/31 14:02:27 by mmanssou         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:49:03 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <sys/types.h>
 
 char	*convert_char_to_binary(char c);
-void	send_binary(char *binary, pid_t pid);
+void	send_binary(char *binary, int pid);
 void	send_end(pid_t pid);
 void	handle_av(const char *av, pid_t pid);
 
