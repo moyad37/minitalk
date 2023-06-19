@@ -18,7 +18,7 @@ char	*convert_char_to_binary(char c)
 		binary[31 - i] = bit + '0';
 		i--;
 	}
-    binary[8] = 0;
+    binary[32] = 0;
 	return (binary);
 }
 
@@ -33,12 +33,13 @@ void	send_binary(char *binary, pid_t pid)
 		{
 			kill(pid, SIGUSR1);
 			usleep(200);
-			signal(SIGUSR1, get_recived);
+			//signal(SIGUSR1, get_recived);
 		}
 		else if (binary[i] == '1')
 		{
 			kill(pid, SIGUSR2);
 			usleep(200);
+			//signal(SIGUSR1, get_recived);
 		}
 		usleep(200);
         i++;

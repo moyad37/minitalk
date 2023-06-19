@@ -7,7 +7,7 @@ CLIENT=client
 SRC1=server.c
 SRC2=client.c
 SRC3=server_bonus.c
-SRC4=client_bonus.c utils.c
+SRC4=client_bonus.c
 INCLUDES=libft/libft.a
 
 all:

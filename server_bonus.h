@@ -20,5 +20,6 @@ typedef struct s_save_cahr
 void		init_data(t_save_char *g_my);
 int		convert_bin_to_char(unsigned int *bin);
 void	handle_code(int seg);
+void    check_resived(int n);
 
 #endif
