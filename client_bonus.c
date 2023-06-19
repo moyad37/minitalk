@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 1970/01/01 01:00:00 by mmanssou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:47:40 by mmanssou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "client.h"
+#include "client_bonus.h"
 
 char	*convert_char_to_binary(char c)
 {
@@ -19,15 +7,15 @@ char	*convert_char_to_binary(char c)
 	char	*binary;
 	int		bit;
 
-	i = 7;
+	i = 31;
 	dec = (int)c;
-	binary = (char *)malloc(sizeof(char) * 9);
+	binary = (char *)malloc(sizeof(char) * 33);
 	if (!binary)
 		return NULL;
 	while (i >= 0)
 	{
 		bit = (dec >> i) & 1;
-		binary[7 - i] = bit + '0';
+		binary[31 - i] = bit + '0';
 		i--;
 	}
     binary[8] = 0;
@@ -39,12 +27,13 @@ void	send_binary(char *binary, pid_t pid)
 	int	i;
 
 	i = 0;
-	while (i <= 7)
+	while (i <= 31)
 	{
 		if (binary[i] == '0')
 		{
 			kill(pid, SIGUSR1);
 			usleep(200);
+			signal(SIGUSR1, get_recived);
 		}
 		else if (binary[i] == '1')
 		{
@@ -62,7 +51,7 @@ void	send_end(pid_t pid)
 	int	i;
 
 	i = 0;
-	while (i != 8)
+	while (i != 32)
 	{
 		kill(pid, SIGUSR1);
 		i++;

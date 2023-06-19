@@ -1,12 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmanssou  <mmanssou@student.42.fr   >      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 1970/01/01 01:00:00 by mmanssou          #+#    #+#             */
-/*   Updated: 2023/05/29 14:43:24 by mmanssou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "client_bonus.h"
 
+void get_recived(int s)
+{
+    if(s == SIGUSR1)
+        write(1, "resived SIGUSR1\n", 16);
+    else if (s == SIGUSR2)
+        write(1, "resived SIGUSR2\n", 16);
+    else
+        write(2, "Error by resive Signals\n", 24);
+}

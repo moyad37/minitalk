@@ -7,13 +7,15 @@ CLIENT=client
 SRC1=server.c
 SRC2=client.c
 SRC3=server_bonus.c
-SRC4=client_bonus.c
+SRC4=client_bonus.c utils.c
 INCLUDES=libft/libft.a
 
 all:
 	${MAKE} -C libft/ all
 	cc $(FLAGS) $(SRC1) $(INCLUDES) -o $(SERVER)
 	cc $(FLAGS) $(SRC2) $(INCLUDES) -o $(CLIENT)
+	cc $(FLAGS) $(SRC3) $(INCLUDES) -o $(SERVER_BONUS)
+	cc $(FLAGS) $(SRC4) $(INCLUDES) -o $(CLIENT_BONUS)
 
 clean:
 	${MAKE} -C libft/ clean

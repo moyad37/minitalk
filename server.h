@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:01:15 by mmanssou          #+#    #+#             */
-/*   Updated: 2023/06/01 13:05:18 by mmanssou         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:42:55 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_save_cahr
 	int	counter;
 }		t_save_char;
 
-void		init_data(t_save_char g_my);
+void		init_data(t_save_char *g_my);
 int		convert_bin_to_char(int *bin);
 void	handle_code(int seg);
 

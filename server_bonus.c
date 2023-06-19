@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 1970/01/01 01:00:00 by mmanssou          #+#    #+#             */
-/*   Updated: 2023/06/15 13:43:28 by mmanssou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "server.h"
+#include "server_bonus.h"
 
 t_save_char	g_my;
 
@@ -22,7 +10,7 @@ void	init_data(t_save_char *g_my)
 	i = 0;
 	g_my->counter = 0;
 	g_my->c= 0;
-	while (i < 8)
+	while (i < 32)
 	{
 		g_my->bin[i] = 0;
 		i++;
@@ -43,7 +31,7 @@ void	init_data(t_save_char *g_my)
 // 	}
 // }
 
-int	convert_bin_to_char(int *bin)
+int	convert_bin_to_char(unsigned int *bin)
 {
 	//printf("hy from handle_convert_bin_to_char\n");
 
@@ -55,13 +43,13 @@ int	convert_bin_to_char(int *bin)
 	base = 1;
 	dec = 0;
 	i = 0;
-	while (i < 8)
+	while (i < 32)
 	{
 		if (bin[i] != 0 && bin[i] != 1)
 			return (-1);
 		i++;
 	}
-	i = 7;
+	i = 31;
 	while (i >= 0)
 	{
 		if (bin[i] == 1)
@@ -85,6 +73,8 @@ void	handle_code(int seg)
 			//printf("here SIG 1\n");
 			g_my.bin[g_my.counter] = 0;
 			g_my.counter++;
+			//kill(g_my.pid, SIGUSR1);
+			//write(1, "resived SIGUSR1\n", 16);
 			usleep(200);
 		}
 		else if (seg == SIGUSR2)
@@ -93,6 +83,8 @@ void	handle_code(int seg)
 
 			g_my.bin[g_my.counter] = 1;
 			g_my.counter++;
+			//kill(g_my.pid, SIGUSR2);
+			//write(1, "resived SIGUSR2\n", 16);
 			usleep(200);
 		}
 		if (g_my.counter == 8)
@@ -110,6 +102,7 @@ void	handle_code(int seg)
 			c = g_my.c;
 			write(1, &c, 1);
 			g_my.counter = 0;
+			g_my.resived = 0;
 			//init(g_my);
 		}
 	}
@@ -124,7 +117,8 @@ int	main(void)
 	// {
 	// 	printf("my.bin[%d] = %d\n", i, g_my.bin[i]);
 	// }
-	ft_putnbr_fd(getpid(), 1);
+	g_my.pid = getpid();
+	ft_putnbr_fd(g_my.pid, 1);
 	write(1, "\n", 1);
 	//write(1, ft_itoa(getpid()), 9);
 	signal(SIGUSR1, handle_code);
